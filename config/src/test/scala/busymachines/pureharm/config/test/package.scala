@@ -45,7 +45,6 @@ package object test {
 
   object SafePhantomInt extends SproutRefinedSubThrow[Int] {
 
-    
     override def refine[F[_]: MonadThrow](value: Int): F[Int] = {
       import busymachines.pureharm.effects.implicits._
       if (value > 0) value.pure[F]

@@ -27,7 +27,7 @@ import busymachines.pureharm.testkit._
   */
 final class PureharmTestConfigTest extends PureharmTest {
 
-  override implicit val testLogger: TestLogger = TestLogger(org.typelevel.log4cats.slf4j.Slf4jLogger.getLogger[IO])
+  implicit override val testLogger: TestLogger = TestLogger(org.typelevel.log4cats.slf4j.Slf4jLogger.getLogger[IO])
 
   test("load config with phantom common types") {
 
