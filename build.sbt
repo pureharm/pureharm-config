@@ -87,7 +87,10 @@ ThisBuild / resolvers += Resolver.sonatypeRepo("snapshots")
 val pureconfigV = "0.14.0" //https://github.com/pureconfig/pureconfig/releases
 val pureharmCoreV = "0.1.0-7bc6204" //https://github.com/busymachines/pureharm-core/releases
 val pureharmEffectsV = "0.1.0-4946221" //https://github.com/busymachines/pureharm-effects-cats/releases
+
+//for testing
 val pureharmTestkitV = "0.1.0-3697355" //https://github.com/busymachines/pureharm-testkit/releases
+val log4catsV = "1.2.0" //https://github.com/typelevel/log4cats/releases
 
 //=============================================================================
 //============================== Project details ==============================
@@ -111,7 +114,8 @@ lazy val config = project
       "com.busymachines" %% "pureharm-core-anomaly" % pureharmCoreV withSources(),
       "com.busymachines" %% "pureharm-core-sprout" % pureharmCoreV withSources(),
       "com.busymachines" %% "pureharm-effects-cats" % pureharmEffectsV withSources(),
-      "com.busymachines" %% "pureharm-testkit" % pureharmTestkitV withSources(),
+      "com.busymachines" %% "pureharm-testkit" % pureharmTestkitV % Test withSources(),
+      "org.typelevel" %% "log4cats-slf4j" % log4catsV % Test withSources(),
     ),
   )
 
