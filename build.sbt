@@ -117,6 +117,8 @@ lazy val config = project
       "com.busymachines" %% "pureharm-testkit" % pureharmTestkitV % Test withSources(),
       "org.typelevel" %% "log4cats-slf4j" % log4catsV % Test withSources(),
     ),
+  ).settings(
+    javaOptions ++= Seq("-source", "1.8", "-target", "1.8")
   )
 
 //=============================================================================
