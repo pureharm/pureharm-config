@@ -34,8 +34,8 @@ final private[test] case class PureharmTestConfig(
 import busymachines.pureharm.config._
 
 private[test] object PureharmTestConfig extends ConfigLoader[PureharmTestConfig] {
-  import busymachines.pureharm.effects.implicits._ //needed for Show[Throwable]
-  import busymachines.pureharm.config.implicits._  //needed for all phantomType implicits
+  implicit val throwableShow: cats.Show[Throwable] = cats.Show.fromToString[Throwable]
+  import busymachines.pureharm.config.implicits._ //needed for all sprout implicits
   import busymachines.pureharm.effects._
 
   implicit override val configReader: ConfigReader[PureharmTestConfig] =
