@@ -73,7 +73,7 @@ trait ConfigLoader[Config] {
   def fromNamespace[F[_]: Sync](namespace: String): F[Config] = this.load(namespace)
 
   final def fromNamespaceR[F[_]: Sync](namespace: String): Resource[F, Config] =
-    Resource.liftF(fromNamespace(namespace))
+    Resource.eval(fromNamespace(namespace))
 
   protected def load[F[_]: Sync](implicit reader: ConfigReader[Config]): F[Config] =
     for {

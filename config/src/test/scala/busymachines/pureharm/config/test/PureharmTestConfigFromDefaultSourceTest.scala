@@ -36,7 +36,7 @@ final class PureharmTestConfigFromDefaultSourceTest extends PureharmTest {
     for {
       read <- correct.fromNamespace[IO]("pureharm.config.test")
     } yield assert(
-      read === PureharmTestConfig(
+      read == PureharmTestConfig(
         PhantomInt(81234),
         PhantomString("phantom-not-a-config"),
         PhantomBoolean(true),
@@ -53,6 +53,7 @@ final class PureharmTestConfigFromDefaultSourceTest extends PureharmTest {
     val incorrectSource = new PureharmTestConfigLoaderFromSource("please-no-NPE.txt")
     for {
       attempt <- incorrectSource.fromNamespace[IO]("pureharm.config.test").attempt
-    } yield assertFailure[ConfigSourceLoadingAnomaly](attempt)
+      _ = interceptFailure[ConfigSourceLoadingAnomaly](attempt)
+    } yield ()
   }
 }

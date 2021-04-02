@@ -32,7 +32,7 @@ val Scala3RC1 = "3.0.0-RC1"
 //see: https://github.com/xerial/sbt-sonatype#buildsbt
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 
-ThisBuild / baseVersion  := "0.1.0"
+ThisBuild / baseVersion  := "0.2"
 ThisBuild / organization := "com.busymachines"
 ThisBuild / organizationName := "BusyMachines"
 ThisBuild / homepage     := Option(url("https://github.com/busymachines/pureharm-config"))
@@ -85,12 +85,12 @@ ThisBuild / resolvers += Resolver.sonatypeRepo("releases")
 ThisBuild / resolvers += Resolver.sonatypeRepo("snapshots")
 
 val pureconfigV      = "0.14.0" //https://github.com/pureconfig/pureconfig/releases
-val pureharmCoreV    = "0.1.0"  //https://github.com/busymachines/pureharm-core/releases
-val pureharmEffectsV = "0.1.0"  //https://github.com/busymachines/pureharm-effects-cats/releases
+val pureharmCoreV    = "0.2.0"  //https://github.com/busymachines/pureharm-core/releases
+val pureharmEffectsV = "0.2.0"  //https://github.com/busymachines/pureharm-effects-cats/releases
 
 //for testing
-val pureharmTestkitV = "0.1.0" //https://github.com/busymachines/pureharm-testkit/releases
-val log4catsV = "1.2.0" //https://github.com/typelevel/log4cats/releases
+val pureharmTestkitV = "0.2.0" //https://github.com/busymachines/pureharm-testkit/releases
+val log4catsV = "1.2.2" //https://github.com/typelevel/log4cats/releases
 
 //=============================================================================
 //============================== Project details ==============================
@@ -126,6 +126,9 @@ lazy val config = project
 //=============================================================================
 
 lazy val commonSettings = Seq(
+  //required for munit: https://scalameta.org/munit/docs/getting-started.html
+  testFrameworks += new TestFramework("munit.Framework"),
+
   Compile / unmanagedSourceDirectories ++= {
     val major = if (isDotty.value) "-3" else "-2"
     List(CrossType.Pure, CrossType.Full).flatMap(

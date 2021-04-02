@@ -34,7 +34,7 @@ final class PureharmTestConfigTest extends PureharmTest {
     for {
       read <- PureharmTestConfig.testConfig[IO]
     } yield assert(
-      read === PureharmTestConfig(
+      read == PureharmTestConfig(
         PhantomInt(42),
         PhantomString("phantom"),
         PhantomBoolean(false),
@@ -51,7 +51,8 @@ final class PureharmTestConfigTest extends PureharmTest {
   test("fail when loading invalid config") {
     for {
       readAtt <- PureharmTestConfig.fromNamespace[IO]("pureharm.config.test.invalid").attempt
-    } yield assertFailure[ConfigAggregateAnomalies](readAtt)
+      _ = interceptFailure[ConfigAggregateAnomalies](readAtt)
+    } yield ()
   }
 
   test("fail on safe phantom type when loading invalid config") {
