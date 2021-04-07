@@ -36,6 +36,10 @@ import pureconfig.error.ConfigReaderFailures
   * @author Lorand Szakacs, https://github.com/lorandszakacs
   * @since 20 Jun 2018
   */
+@scala.deprecatedInheritance(
+  "pureharm-config is at the end-of-life. Please use pureharm-config-ciris, or inline this library",
+  "0.3.0",
+)
 trait ConfigLoader[Config] {
 
   /** This exists to force semi-auto-derivation, and it allows us to build
