@@ -23,6 +23,7 @@ import busymachines.pureharm.config._
 import busymachines.pureharm.effects._
 import busymachines.pureharm.effects.implicits._
 
+@scala.annotation.nowarn
 private[test] class PureharmTestConfigLoaderFromSource(filePath: String) extends ConfigLoader[PureharmTestConfig] {
 
   override def configSource[F[_]](implicit F: Sync[F]): F[ConfigSource] =
