@@ -16,8 +16,9 @@
 
 package busymachines.pureharm.internals.config
 
-import busymachines.pureharm.effects._
-import busymachines.pureharm.effects.implicits._
+import cats.Show
+import cats.syntax.all._
+
 import busymachines.pureharm.sprout._
 import pureconfig.error.CannotConvert
 import pureconfig.{ConfigReader, ConfigWriter}
@@ -41,17 +42,20 @@ object PureharmConfigInstances {
       reader:  ConfigWriter[Underlying],
     ): ConfigWriter[New] = reader.contramap(oldType.oldType)
 
-    implicit final def pureharmRefinedTypeConfigReader[Underlying, New, E](implicit
-      refined: RefinedType[Underlying, New, E],
-      reader:  ConfigReader[Underlying],
-      show:    Show[E],
+    implicit final def pureharmRefinedTypeThrowConfigReader[Underlying, New, E](implicit
+      refined: RefinedTypeThrow[Underlying, New],
       ushow:   Show[Underlying],
+      reader:  ConfigReader[Underlying],
     ): ConfigReader[New] =
       reader.emap(s =>
         refined
-          .newType[Either[E, *]](s)
+          .newType[Either[Throwable, *]](s)
           .leftMap(e =>
-            CannotConvert(value = s.show, toType = s"SproutRefined[${s.getClass.getCanonicalName}]", because = e.show)
+            CannotConvert(
+              value   = s.show,
+              toType  = s"SproutRefined[${refined.symbolicName}]",
+              because = e.toString,
+            )
           )
       )
   }
