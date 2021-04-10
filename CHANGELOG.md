@@ -7,11 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # unreleased
 
+# 0.4.0
+
+Reverse deprecation warnings. Usage of `pureharm-config` is still discouraged in favor of other modules. But, this release will be the last one which will be used by downstream pureharm modules, leaving it to the user to determine how configs ought to be read.
+
+### dependency changes
+
+- drop dependency on [pureharm-effects-cats](https://github.com/busymachines/pureharm-effects-cats/releases), depend only on [`cats-effect`](https://github.com/typelevel/cats-effect/releases) `2.4.1`
+
 # 0.3.0
 
 Still EOL, small maintenance release.
 
-### Dependency upgrades
+### dependency upgrades
 
 - [pureharm-effects-cats](https://github.com/busymachines/pureharm-effects-cats/releases) `0.4.0`
 
@@ -19,9 +27,6 @@ Still EOL, small maintenance release.
 
 This release marks the end of the line for pureharm-config. From now on, pureharm modules will encourage users to depend on `pureharm-config-ciris`, and they will deprecate the usage of `pureharm-config`, and removing it completely starting versions `0.3.x` onwards.
 
-### Dependency upgrades
-
--
 
 # 0.1.0
 

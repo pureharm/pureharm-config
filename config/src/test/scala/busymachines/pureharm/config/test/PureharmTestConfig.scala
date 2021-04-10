@@ -33,11 +33,10 @@ final private[test] case class PureharmTestConfig(
 
 import busymachines.pureharm.config._
 
-@scala.annotation.nowarn
 private[test] object PureharmTestConfig extends ConfigLoader[PureharmTestConfig] {
   implicit val throwableShow: cats.Show[Throwable] = cats.Show.fromToString[Throwable]
   import busymachines.pureharm.config.implicits._ //needed for all sprout implicits
-  import busymachines.pureharm.effects._
+  import cats.effect._
 
   implicit override val configReader: ConfigReader[PureharmTestConfig] =
     semiauto.deriveReader[PureharmTestConfig]

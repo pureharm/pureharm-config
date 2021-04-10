@@ -29,7 +29,7 @@ import busymachines.pureharm.testkit.TestLogger
   */
 final class PureharmTestConfigFromDefaultSourceTest extends PureharmTest {
 
-  implicit override val testLogger: TestLogger = TestLogger(org.typelevel.log4cats.slf4j.Slf4jLogger.getLogger[IO])
+  implicit override val testLogger: TestLogger = TestLogger(org.typelevel.log4cats.noop.NoOpLogger[IO])
 
   test("load config from correct custom path") {
     val correct = new PureharmTestConfigLoaderFromSource("not-a-conf.txt")
@@ -44,7 +44,7 @@ final class PureharmTestConfigFromDefaultSourceTest extends PureharmTest {
         PhantomSet(Set("value1", "value2")),
         PhantomFiniteDuration(10.minutes),
         PhantomDuration(10.minutes),
-        SafePhantomInt[Attempt](123).unsafeGet(),
+        SafePhantomInt[Try](123).get,
       )
     )
   }

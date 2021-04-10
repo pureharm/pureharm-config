@@ -27,7 +27,7 @@ import busymachines.pureharm.testkit._
   */
 final class PureharmTestConfigTest extends PureharmTest {
 
-  implicit override val testLogger: TestLogger = TestLogger(org.typelevel.log4cats.slf4j.Slf4jLogger.getLogger[IO])
+  implicit override val testLogger: TestLogger = TestLogger(org.typelevel.log4cats.noop.NoOpLogger[IO])
 
   test("load config with phantom common types") {
 
@@ -42,7 +42,7 @@ final class PureharmTestConfigTest extends PureharmTest {
         PhantomSet(Set("value1", "value2")),
         PhantomFiniteDuration(10.minutes),
         PhantomDuration(10.minutes),
-        SafePhantomInt[Attempt](123).unsafeGet(),
+        SafePhantomInt[Try](123).get,
       )
     )
 

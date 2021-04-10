@@ -16,8 +16,9 @@
 
 package busymachines.pureharm.internals.config
 
-import busymachines.pureharm.effects._
-import busymachines.pureharm.effects.implicits._
+import cats.Show
+import cats.syntax.all._
+
 import busymachines.pureharm.sprout._
 import pureconfig.error.CannotConvert
 import pureconfig.{ConfigReader, ConfigWriter}

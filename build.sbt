@@ -23,7 +23,6 @@ addCommandAlias("github-check", "githubWorkflowCheck")
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
 val Scala213  = "2.13.5"
-val Scala3RC1 = "3.0.0-RC1"
 
 //=============================================================================
 //============================ publishing details =============================
@@ -32,7 +31,7 @@ val Scala3RC1 = "3.0.0-RC1"
 //see: https://github.com/xerial/sbt-sonatype#buildsbt
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 
-ThisBuild / baseVersion  := "0.3"
+ThisBuild / baseVersion  := "0.4"
 ThisBuild / organization := "com.busymachines"
 ThisBuild / organizationName := "BusyMachines"
 ThisBuild / homepage     := Option(url("https://github.com/busymachines/pureharm-config"))
@@ -75,7 +74,6 @@ ThisBuild / crossScalaVersions := List(Scala213) //List(Scala213, Scala3RC1)
 //required for binary compat checks
 ThisBuild / versionIntroduced := Map(
   Scala213  -> "0.1.0",
-  Scala3RC1 -> "0.1.0",
 )
 
 //=============================================================================
@@ -84,13 +82,13 @@ ThisBuild / versionIntroduced := Map(
 ThisBuild / resolvers += Resolver.sonatypeRepo("releases")
 ThisBuild / resolvers += Resolver.sonatypeRepo("snapshots")
 
-val pureconfigV      = "0.14.0" //https://github.com/pureconfig/pureconfig/releases
-val pureharmCoreV    = "0.2.0"  //https://github.com/busymachines/pureharm-core/releases
-val pureharmEffectsV = "0.2.0"  //https://github.com/busymachines/pureharm-effects-cats/releases
-
-//for testing
-val pureharmTestkitV = "0.2.0" //https://github.com/busymachines/pureharm-testkit/releases
-val log4catsV = "1.2.2" //https://github.com/typelevel/log4cats/releases
+// format: on
+val pureconfigV       = "0.14.0"    //https://github.com/pureconfig/pureconfig/releases
+val catsEffectV       = "2.4.1"     //https://github.com/typelevel/cats-effect/releases
+val pureharmCoreV     = "0.2.0"     //https://github.com/busymachines/pureharm-core/releases
+val pureharmTestkitV  = "0.3.0"     //https://github.com/busymachines/pureharm-testkit/releases
+val log4catsV         = "1.2.2"     //https://github.com/typelevel/log4cats/releases
+// format: off
 
 //=============================================================================
 //============================== Project details ==============================
@@ -110,12 +108,14 @@ lazy val config = project
   .settings(
     name := "pureharm-config",
     libraryDependencies ++= Seq(
-      "com.github.pureconfig" %% "pureconfig" % pureconfigV withSources(),
-      "com.busymachines" %% "pureharm-core-anomaly" % pureharmCoreV withSources(),
-      "com.busymachines" %% "pureharm-core-sprout" % pureharmCoreV withSources(),
-      "com.busymachines" %% "pureharm-effects-cats" % pureharmEffectsV withSources(),
-      "com.busymachines" %% "pureharm-testkit" % pureharmTestkitV % Test withSources(),
-      "org.typelevel" %% "log4cats-slf4j" % log4catsV % Test withSources(),
+      // format: off
+      "org.typelevel"           %% "cats-effect"              % catsEffectV                 withSources(),
+      "com.github.pureconfig"   %% "pureconfig"               % pureconfigV                 withSources(),
+      "com.busymachines"        %% "pureharm-core-anomaly"    % pureharmCoreV               withSources(),
+      "com.busymachines"        %% "pureharm-core-sprout"     % pureharmCoreV               withSources(),
+      "com.busymachines"        %% "pureharm-testkit"         % pureharmTestkitV  % Test    withSources(),
+      "org.typelevel"           %% "log4cats-noop"            % log4catsV         % Test    withSources(),
+      // format: off
     ),
   ).settings(
     javaOptions ++= Seq("-source", "1.8", "-target", "1.8")
@@ -126,9 +126,6 @@ lazy val config = project
 //=============================================================================
 
 lazy val commonSettings = Seq(
-  //required for munit: https://scalameta.org/munit/docs/getting-started.html
-  testFrameworks += new TestFramework("munit.Framework"),
-
   Compile / unmanagedSourceDirectories ++= {
     val major = if (isDotty.value) "-3" else "-2"
     List(CrossType.Pure, CrossType.Full).flatMap(
