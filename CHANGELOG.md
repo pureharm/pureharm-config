@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # unreleased
 
+
+This is the first release available for Scala 3 and cats-effect 3!
+
+### :warning: module rename :warning:
+- for cats-effect 2 compatibility use `pureharm-config-ce2`, for cats-effect 3 compat use `pureharm-config`
+
+### new Scala versions:
+- `2.13.6`
+
+### dependency upgrades
+- [pureconfig](https://github.com/pureconfig/pureconfig/releases) `0.16.0`
+- [cats-effect](https://github.com/typelevel/cats-effect/releases) `2.5.3`  
+- [pureharm-core-anomaly](https://github.com/busymachines/pureharm-core/releases) `0.3.0`
+- [pureharm-core-sprout](https://github.com/busymachines/pureharm-core/releases) `0.3.0`
+
+### internals
+- temporarily disable tests, will be revived in a future milestone release
+- bump scalafmt to `3.0.0-RC6` — from `2.7.5`
+- bump sbt to `1.5.5`
+- bump sbt-spiewak to `0.21.0`
+- bump sbt-scalafmt to `2.4.3`
+
 # 0.4.0
 
 Reverse deprecation warnings. Usage of `pureharm-config` is still discouraged in favor of other modules. But, this release will be the last one which will be used by downstream pureharm modules, leaving it to the user to determine how configs ought to be read.

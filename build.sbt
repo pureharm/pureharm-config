@@ -20,7 +20,7 @@
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-val Scala213 = "2.13.5"
+val Scala213 = "2.13.6"
 
 //=============================================================================
 //============================ publishing details =============================
@@ -67,7 +67,8 @@ ThisBuild / spiewakMainBranches       := List("main")
 ThisBuild / Test / publishArtifact    := false
 
 ThisBuild / scalaVersion       := Scala213
-ThisBuild / crossScalaVersions := List(Scala213) //List(Scala213, Scala3RC1)
+// ThisBuild / crossScalaVersions := List(Scala213, Scala3)
+ThisBuild / crossScalaVersions := List(Scala213)
 
 //required for binary compat checks
 ThisBuild / versionIntroduced := Map(
@@ -81,11 +82,11 @@ ThisBuild / resolvers += Resolver.sonatypeRepo("releases")
 ThisBuild / resolvers += Resolver.sonatypeRepo("snapshots")
 
 // format: on
-val pureconfigV      = "0.14.0" //https://github.com/pureconfig/pureconfig/releases
-val catsEffectV      = "2.4.1"  //https://github.com/typelevel/cats-effect/releases
-val pureharmCoreV    = "0.2.0"  //https://github.com/busymachines/pureharm-core/releases
-val pureharmTestkitV = "0.3.0"  //https://github.com/busymachines/pureharm-testkit/releases
-val log4catsV        = "1.2.2"  //https://github.com/typelevel/log4cats/releases
+val pureconfigV      = "0.16.0" //https://github.com/pureconfig/pureconfig/releases
+val catsEffectV      = "2.5.3"  //https://github.com/typelevel/cats-effect/releases
+val pureharmCoreV    = "0.3.0"  //https://github.com/busymachines/pureharm-core/releases
+val pureharmTestkitV = "0.4.0"  //https://github.com/busymachines/pureharm-testkit/releases
+val log4catsV        = "1.3.1"  //https://github.com/typelevel/log4cats/releases
 // format: off
 
 //=============================================================================
@@ -111,7 +112,7 @@ lazy val config = project
       "com.github.pureconfig"   %% "pureconfig"               % pureconfigV                 withSources(),
       "com.busymachines"        %% "pureharm-core-anomaly"    % pureharmCoreV               withSources(),
       "com.busymachines"        %% "pureharm-core-sprout"     % pureharmCoreV               withSources(),
-      "com.busymachines"        %% "pureharm-testkit"         % pureharmTestkitV  % Test    withSources(),
+      "com.busymachines"        %% "pureharm-testkit-ce2"     % pureharmTestkitV  % Test    withSources(),
       "org.typelevel"           %% "log4cats-noop"            % log4catsV         % Test    withSources(),
       // format: off
     ),

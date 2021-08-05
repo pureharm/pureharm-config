@@ -76,13 +76,13 @@ trait ConfigLoader[Config] {
   protected def load[F[_]: Sync](implicit reader: ConfigReader[Config]): F[Config] =
     for {
       source <- configSource[F].adaptError { case e => ConfigSourceLoadingAnomaly(e) }
-      value  <- configToF(source.load[Config](Derivation.Successful(reader)))(Option.empty)
+      value  <- configToF(source.load[Config](reader))(Option.empty)
     } yield value
 
   protected def load[F[_]: Sync](namespace: String)(implicit reader: ConfigReader[Config]): F[Config] =
     for {
       source <- configSource[F].adaptError { case e => ConfigSourceLoadingAnomaly(e) }
-      value  <- configToF(source.at(namespace).load[Config](Derivation.Successful(reader)))(Option(namespace))
+      value  <- configToF(source.at(namespace).load[Config](reader))(Option(namespace))
         .adaptError { case f: ConfigAggregateAnomalies => f.withNamespace(namespace) }
     } yield value
 
