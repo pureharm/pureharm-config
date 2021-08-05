@@ -84,13 +84,15 @@ ThisBuild / versionIntroduced := Map(
 ThisBuild / resolvers += Resolver.sonatypeRepo("releases")
 ThisBuild / resolvers += Resolver.sonatypeRepo("snapshots")
 
-// format: on
-val pureconfigV      = "0.16.0" //https://github.com/pureconfig/pureconfig/releases
-val catsEffectV      = "2.5.3"  //https://github.com/typelevel/cats-effect/releases
-val pureharmCoreV    = "0.3.0"  //https://github.com/busymachines/pureharm-core/releases
-val pureharmTestkitV = "0.4.0"  //https://github.com/busymachines/pureharm-testkit/releases
-val log4catsV        = "1.3.1"  //https://github.com/typelevel/log4cats/releases
 // format: off
+val pureconfigV         = "0.16.0" //https://github.com/pureconfig/pureconfig/releases
+val catsEffectV         = "3.2.1"  //https://github.com/typelevel/cats-effect/releases
+val catsEffectCE2V      = "2.5.3"  //https://github.com/typelevel/cats-effect/releases
+val pureharmCoreV       = "0.3.0"  //https://github.com/busymachines/pureharm-core/releases
+val pureharmTestkitV    = "0.4.0"  //https://github.com/busymachines/pureharm-testkit/releases
+val log4catsV           = "2.1.1"  //https://github.com/typelevel/log4cats/releases
+val log4catsCE2V        = "1.3.1"  //https://github.com/typelevel/log4cats/releases
+// format: on
 
 //=============================================================================
 //============================== Project details ==============================
@@ -100,6 +102,7 @@ lazy val root = project
   .in(file("."))
   .aggregate(
     config,
+    `config-ce2`,
   )
   .enablePlugins(NoPublishPlugin)
   .enablePlugins(SonatypeCiReleasePlugin)
@@ -112,6 +115,24 @@ lazy val config = project
     libraryDependencies ++= Seq(
       // format: off
       "org.typelevel"           %% "cats-effect"              % catsEffectV                 withSources(),
+      "com.github.pureconfig"   %% "pureconfig"               % pureconfigV                 withSources(),
+      "com.busymachines"        %% "pureharm-core-anomaly"    % pureharmCoreV               withSources(),
+      "com.busymachines"        %% "pureharm-core-sprout"     % pureharmCoreV               withSources(),
+      "com.busymachines"        %% "pureharm-testkit"         % pureharmTestkitV  % Test    withSources(),
+      "org.typelevel"           %% "log4cats-noop"            % log4catsV         % Test    withSources(),
+      // format: off
+    ),
+  ).settings(
+    javaOptions ++= Seq("-source", "1.8", "-target", "1.8")
+  )
+
+lazy val `config-ce2` = project
+  .settings(commonSettings)
+  .settings(
+    name := "pureharm-config-ce2",
+    libraryDependencies ++= Seq(
+      // format: off
+      "org.typelevel"           %% "cats-effect"              % catsEffectCE2V              withSources(),
       "com.github.pureconfig"   %% "pureconfig"               % pureconfigV                 withSources(),
       "com.busymachines"        %% "pureharm-core-anomaly"    % pureharmCoreV               withSources(),
       "com.busymachines"        %% "pureharm-core-sprout"     % pureharmCoreV               withSources(),
