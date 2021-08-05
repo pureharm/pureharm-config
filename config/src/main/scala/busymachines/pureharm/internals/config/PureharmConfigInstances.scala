@@ -23,8 +23,10 @@ import busymachines.pureharm.sprout._
 import pureconfig.error.CannotConvert
 import pureconfig.{ConfigReader, ConfigWriter}
 
-/** @author Lorand Szakacs, https://github.com/lorandszakacs
-  * @since 16 Jun 2019
+/** @author
+  *   Lorand Szakacs, https://github.com/lorandszakacs
+  * @since 16
+  *   Jun 2019
   */
 object PureharmConfigInstances {
 

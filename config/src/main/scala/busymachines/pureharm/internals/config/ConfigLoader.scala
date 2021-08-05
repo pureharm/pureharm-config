@@ -21,8 +21,7 @@ import cats.effect._
 import pureconfig._
 import pureconfig.error.ConfigReaderFailures
 
-/** Important to note:
-  * Given a case class:
+/** Important to note: Given a case class:
   * {{{
   *   final case class TestConfig(
   *     port: Int,
@@ -30,16 +29,16 @@ import pureconfig.error.ConfigReaderFailures
   *     apiRoot: String,
   *   )
   * }}}
-  * the ``apiRoot`` field will be read as ``api-root`` from the file.
-  * So camelCase gets converted into "-" case.
+  * the ``apiRoot`` field will be read as ``api-root`` from the file. So camelCase gets converted into "-" case.
   *
-  * @author Lorand Szakacs, https://github.com/lorandszakacs
-  * @since 20 Jun 2018
+  * @author
+  *   Lorand Szakacs, https://github.com/lorandszakacs
+  * @since 20
+  *   Jun 2018
   */
 trait ConfigLoader[Config] {
 
-  /** This exists to force semi-auto-derivation, and it allows us to build
-    * proper functions. Simply do:
+  /** This exists to force semi-auto-derivation, and it allows us to build proper functions. Simply do:
     *
     * {{{
     *   import busymachines.pureharm.config._
@@ -63,8 +62,7 @@ trait ConfigLoader[Config] {
 
   /** Override this to provide non default source, simply by using pureconfig's useful data:
     *
-    * //etc. or fetch your config from external service, etc.
-    * F.delay(ConfigSource.file(...))
+    * //etc. or fetch your config from external service, etc. F.delay(ConfigSource.file(...))
     */
   def configSource[F[_]](implicit F: Sync[F]): F[ConfigSource] = F.delay(ConfigSource.default)
 

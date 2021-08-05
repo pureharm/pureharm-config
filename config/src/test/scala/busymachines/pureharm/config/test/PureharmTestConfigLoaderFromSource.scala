@@ -16,8 +16,10 @@
 
 package busymachines.pureharm.config.test
 
-/** @author Lorand Szakacs, https://github.com/lorandszakacs
-  * @since 16 Jun 2019
+/** @author
+  *   Lorand Szakacs, https://github.com/lorandszakacs
+  * @since 16
+  *   Jun 2019
   */
 import busymachines.pureharm.config._
 import busymachines.pureharm.effects._

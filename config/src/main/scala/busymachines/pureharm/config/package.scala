@@ -16,7 +16,9 @@
 
 package busymachines.pureharm
 
-/** @author Lorand Szakacs, https://github.com/lorandszakacs
-  * @since 16 Jun 2019
+/** @author
+  *   Lorand Szakacs, https://github.com/lorandszakacs
+  * @since 16
+  *   Jun 2019
   */
 package object config extends PureconfigAllTypeDefinitions

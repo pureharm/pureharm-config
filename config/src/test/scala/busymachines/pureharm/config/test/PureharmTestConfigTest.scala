@@ -22,8 +22,10 @@ import busymachines.pureharm.effects.implicits._
 import busymachines.pureharm.internals.config.ConfigAggregateAnomalies
 import busymachines.pureharm.testkit._
 
-/** @author Lorand Szakacs, https://github.com/lorandszakacs
-  * @since 16 Jun 2019
+/** @author
+  *   Lorand Szakacs, https://github.com/lorandszakacs
+  * @since 16
+  *   Jun 2019
   */
 final class PureharmTestConfigTest extends PureharmTest {
 

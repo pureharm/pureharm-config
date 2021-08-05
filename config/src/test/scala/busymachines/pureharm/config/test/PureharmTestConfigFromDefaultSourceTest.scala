@@ -24,8 +24,10 @@ import busymachines.pureharm.testkit.PureharmTest
 import scala.concurrent.duration._
 import busymachines.pureharm.testkit.TestLogger
 
-/** @author Lorand Szakacs, https://github.com/lorandszakacs
-  * @since 16 Jun 2019
+/** @author
+  *   Lorand Szakacs, https://github.com/lorandszakacs
+  * @since 16
+  *   Jun 2019
   */
 final class PureharmTestConfigFromDefaultSourceTest extends PureharmTest {
 

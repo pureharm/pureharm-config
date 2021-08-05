@@ -19,8 +19,10 @@ package busymachines.pureharm.internals.config
 import busymachines.pureharm.anomaly._
 import pureconfig.error.{ConfigReaderFailure, ConfigReaderFailures}
 
-/** @author Lorand Szakacs, https://github.com/lorandszakacs
-  * @since 16 Jun 2019
+/** @author
+  *   Lorand Szakacs, https://github.com/lorandszakacs
+  * @since 16
+  *   Jun 2019
   */
 final case class ConfigReadingAnomaly(c: ConfigReaderFailure)
   extends InvalidInputAnomaly(s"Failed to read config because: ${c.description}") {
