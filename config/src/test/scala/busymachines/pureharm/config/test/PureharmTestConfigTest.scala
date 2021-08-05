@@ -18,7 +18,6 @@ package busymachines.pureharm.config.test
 
 import scala.concurrent.duration._
 import busymachines.pureharm.effects._
-import busymachines.pureharm.effects.implicits._
 import busymachines.pureharm.internals.config.ConfigAggregateAnomalies
 import busymachines.pureharm.testkit._
 

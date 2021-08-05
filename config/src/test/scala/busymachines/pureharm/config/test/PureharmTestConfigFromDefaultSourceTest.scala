@@ -17,7 +17,6 @@
 package busymachines.pureharm.config.test
 
 import busymachines.pureharm.effects._
-import busymachines.pureharm.effects.implicits._
 import busymachines.pureharm.internals.config.ConfigSourceLoadingAnomaly
 import busymachines.pureharm.testkit.PureharmTest
 
