@@ -18,11 +18,12 @@
 //============================== build details ================================
 //=============================================================================
 
-addCommandAlias("github-gen", "githubWorkflowGenerate")
-addCommandAlias("github-check", "githubWorkflowCheck")
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-val Scala213  = "2.13.5"
+// format: off
+val Scala213      = "2.13.6"
+val Scala3        = "3.0.1"
+// format: on
 
 //=============================================================================
 //============================ publishing details =============================
@@ -31,10 +32,10 @@ val Scala213  = "2.13.5"
 //see: https://github.com/xerial/sbt-sonatype#buildsbt
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 
-ThisBuild / baseVersion  := "0.4"
-ThisBuild / organization := "com.busymachines"
+ThisBuild / baseVersion      := "0.5"
+ThisBuild / organization     := "com.busymachines"
 ThisBuild / organizationName := "BusyMachines"
-ThisBuild / homepage     := Option(url("https://github.com/busymachines/pureharm-config"))
+ThisBuild / homepage         := Option(url("https://github.com/busymachines/pureharm-config"))
 
 ThisBuild / scmInfo := Option(
   ScmInfo(
@@ -43,8 +44,8 @@ ThisBuild / scmInfo := Option(
   )
 )
 
-/** I want my email. So I put this here. To reduce a few lines of code,
-  * the sbt-spiewak plugin generates this (except email) from these two settings:
+/** I want my email. So I put this here. To reduce a few lines of code, the sbt-spiewak plugin generates this (except
+  * email) from these two settings:
   * {{{
   * ThisBuild / publishFullName   := "Loránd Szakács"
   * ThisBuild / publishGithubUser := "lorandszakacs"
@@ -59,7 +60,7 @@ ThisBuild / developers := List(
   )
 )
 
-ThisBuild / startYear := Some(2019)
+ThisBuild / startYear  := Some(2019)
 ThisBuild / licenses   := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 //until we get to 1.0.0, we keep strictSemVer false
@@ -69,11 +70,12 @@ ThisBuild / spiewakMainBranches       := List("main")
 ThisBuild / Test / publishArtifact    := false
 
 ThisBuild / scalaVersion       := Scala213
-ThisBuild / crossScalaVersions := List(Scala213) //List(Scala213, Scala3RC1)
+// ThisBuild / crossScalaVersions := List(Scala213, Scala3)
+ThisBuild / crossScalaVersions := List(Scala213)
 
 //required for binary compat checks
 ThisBuild / versionIntroduced := Map(
-  Scala213  -> "0.1.0",
+  Scala213 -> "0.1.0"
 )
 
 //=============================================================================
@@ -82,13 +84,15 @@ ThisBuild / versionIntroduced := Map(
 ThisBuild / resolvers += Resolver.sonatypeRepo("releases")
 ThisBuild / resolvers += Resolver.sonatypeRepo("snapshots")
 
-// format: on
-val pureconfigV       = "0.14.0"    //https://github.com/pureconfig/pureconfig/releases
-val catsEffectV       = "2.4.1"     //https://github.com/typelevel/cats-effect/releases
-val pureharmCoreV     = "0.2.0"     //https://github.com/busymachines/pureharm-core/releases
-val pureharmTestkitV  = "0.3.0"     //https://github.com/busymachines/pureharm-testkit/releases
-val log4catsV         = "1.2.2"     //https://github.com/typelevel/log4cats/releases
 // format: off
+val pureconfigV         = "0.16.0" //https://github.com/pureconfig/pureconfig/releases
+val catsEffectV         = "3.2.1"  //https://github.com/typelevel/cats-effect/releases
+val catsEffectCE2V      = "2.5.3"  //https://github.com/typelevel/cats-effect/releases
+val pureharmCoreV       = "0.3.0"  //https://github.com/busymachines/pureharm-core/releases
+val pureharmTestkitV    = "0.4.0"  //https://github.com/busymachines/pureharm-testkit/releases
+val log4catsV           = "2.1.1"  //https://github.com/typelevel/log4cats/releases
+val log4catsCE2V        = "1.3.1"  //https://github.com/typelevel/log4cats/releases
+// format: on
 
 //=============================================================================
 //============================== Project details ==============================
@@ -98,6 +102,7 @@ lazy val root = project
   .in(file("."))
   .aggregate(
     config,
+    `config-ce2`,
   )
   .enablePlugins(NoPublishPlugin)
   .enablePlugins(SonatypeCiReleasePlugin)
@@ -121,21 +126,39 @@ lazy val config = project
     javaOptions ++= Seq("-source", "1.8", "-target", "1.8")
   )
 
+lazy val `config-ce2` = project
+  .settings(commonSettings)
+  .settings(
+    name := "pureharm-config-ce2",
+    libraryDependencies ++= Seq(
+      // format: off
+      "org.typelevel"           %% "cats-effect"              % catsEffectCE2V              withSources(),
+      "com.github.pureconfig"   %% "pureconfig"               % pureconfigV                 withSources(),
+      "com.busymachines"        %% "pureharm-core-anomaly"    % pureharmCoreV               withSources(),
+      "com.busymachines"        %% "pureharm-core-sprout"     % pureharmCoreV               withSources(),
+      "com.busymachines"        %% "pureharm-testkit-ce2"     % pureharmTestkitV  % Test    withSources(),
+      "org.typelevel"           %% "log4cats-noop"            % log4catsV         % Test    withSources(),
+      // format: off
+    ),
+  ).settings(
+    javaOptions ++= Seq("-source", "1.8", "-target", "1.8")
+  )
+
 //=============================================================================
 //================================= Settings ==================================
 //=============================================================================
 
 lazy val commonSettings = Seq(
-  Compile / unmanagedSourceDirectories ++= {
-    val major = if (isDotty.value) "-3" else "-2"
-    List(CrossType.Pure, CrossType.Full).flatMap(
-      _.sharedSrcDir(baseDirectory.value, "main").toList.map(f => file(f.getPath + major))
-    )
-  },
-  Test / unmanagedSourceDirectories ++= {
-    val major = if (isDotty.value) "-3" else "-2"
-    List(CrossType.Pure, CrossType.Full).flatMap(
-      _.sharedSrcDir(baseDirectory.value, "test").toList.map(f => file(f.getPath + major))
-    )
-  },
+  scalacOptions ++= scalaCompilerOptions(scalaVersion.value)
 )
+
+def scalaCompilerOptions(scalaVersion: String): Seq[String] =
+  CrossVersion.partialVersion(scalaVersion) match {
+    case Some((2, _)) =>
+      Seq[String](
+        //"-Xsource:3"
+      )
+    case _            => Seq.empty[String]
+  }
+
+def ITT: String = "it,test"
