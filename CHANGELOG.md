@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # unreleased
 
+# 0.5.0
+
+:warning: keep in mind the same warning as for version `0.4.0` :warning:
 
 This is the first release available for cats-effect 3!
 
