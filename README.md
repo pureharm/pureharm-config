@@ -10,13 +10,19 @@ See [changelog](./CHANGELOG.md).
 
 ## modules
 
-The available modules are.
+The available modules are:
 
-- `"com.busymachines" %% s"pureharm-config" % "0.4.0"`. Which has these as its main dependencies:
-  - [cats-effect](https://github.com/typelevel/cats-effect/releases) `2.4.1`
-  - [pureconfig](https://github.com/pureconfig/pureconfig/releases) `0.14.0`
-  - [pureharm-core-anomaly](https://github.com/busymachines/pureharm-core/releases) `0.2.0`
-  - [pureharm-core-sprout](https://github.com/busymachines/pureharm-core/releases) `0.2.0`
+- `"com.busymachines" %% s"pureharm-config" % "0.5.0"`. Which has these as its main dependencies:
+  - [cats-effect](https://github.com/typelevel/cats-effect/releases) `2.5.3`
+  - [pureconfig](https://github.com/pureconfig/pureconfig/releases) `0.16.0`
+  - [pureharm-core-anomaly](https://github.com/busymachines/pureharm-core/releases) `0.3.0`
+  - [pureharm-core-sprout](https://github.com/busymachines/pureharm-core/releases) `0.3.0`
+
+- `"com.busymachines" %% s"pureharm-config-ce2" % "0.5.0"`. Which has these as its main dependencies:
+  - [cats-effect](https://github.com/typelevel/cats-effect/releases) `3.2.1`
+  - [pureconfig](https://github.com/pureconfig/pureconfig/releases) `0.16.0`
+  - [pureharm-core-anomaly](https://github.com/busymachines/pureharm-core/releases) `0.3.0`
+  - [pureharm-core-sprout](https://github.com/busymachines/pureharm-core/releases) `0.3.0`
 
 ## usage
 

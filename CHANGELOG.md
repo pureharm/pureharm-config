@@ -18,7 +18,7 @@ This is the first release available for cats-effect 3!
 
 ### dependency upgrades
 - [pureconfig](https://github.com/pureconfig/pureconfig/releases) `0.16.0`
-- [cats-effect](https://github.com/typelevel/cats-effect/releases) `2.5.3`  
+- [cats-effect](https://github.com/typelevel/cats-effect/releases) `2.5.3`, `3.2.1` 
 - [pureharm-core-anomaly](https://github.com/busymachines/pureharm-core/releases) `0.3.0`
 - [pureharm-core-sprout](https://github.com/busymachines/pureharm-core/releases) `0.3.0`
 
