@@ -20,7 +20,10 @@
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-val Scala213 = "2.13.6"
+// format: off
+val Scala213      = "2.13.6"
+val Scala3        = "3.0.1"
+// format: on
 
 //=============================================================================
 //============================ publishing details =============================
@@ -29,7 +32,7 @@ val Scala213 = "2.13.6"
 //see: https://github.com/xerial/sbt-sonatype#buildsbt
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 
-ThisBuild / baseVersion      := "0.4"
+ThisBuild / baseVersion      := "0.5"
 ThisBuild / organization     := "com.busymachines"
 ThisBuild / organizationName := "BusyMachines"
 ThisBuild / homepage         := Option(url("https://github.com/busymachines/pureharm-config"))
@@ -72,7 +75,7 @@ ThisBuild / crossScalaVersions := List(Scala213)
 
 //required for binary compat checks
 ThisBuild / versionIntroduced := Map(
-  Scala213 -> "0.1.0"
+  Scala213 -> "0.1.0",
 )
 
 //=============================================================================

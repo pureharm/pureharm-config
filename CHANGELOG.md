@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # unreleased
 
 
-This is the first release available for Scala 3 and cats-effect 3!
+This is the first release available for cats-effect 3!
 
 ### :warning: module rename :warning:
 - for cats-effect 2 compatibility use `pureharm-config-ce2`, for cats-effect 3 compat use `pureharm-config`
